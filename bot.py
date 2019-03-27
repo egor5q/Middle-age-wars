@@ -145,8 +145,18 @@ def forest(user):
     bot.send_message(user['id'], text)
         
         
+@bot.callback_query_handler(func=lambda call:True)
+def inline(call): 
+    cgame=None
+    for ids in game.games:
+        g=game.games[ids]
+        if call.from_user.id in g:
+            cgame=g
+    if cgame!=None:
+        if call.data=='endturn':
+            cgame.timer.cancel()
+            cgame.endturn()
         
-                
                 
     
     
