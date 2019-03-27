@@ -95,7 +95,18 @@ def findmonster(players):           # Планы: сделать возможн�
         
     for ids in players:
         bot.send_message(ids['id'], 'Вы нашли логово монстров! Посмотрим, кто же там обитает...')
-    game.creategame(players, monsters)
+    fighters={}
+    ct=1
+    for ids in players: 
+        fighters.update({ids['id']:{'fighter':ids,
+                                   'team':ct}
+                        })
+    ct=2
+    for ids in monsters:
+        fighters.update({createid():{'fighter':ids,
+                                   'team':ct}
+                        })
+    game.creategame(fighters)
         
         
         
