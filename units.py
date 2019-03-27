@@ -10,6 +10,7 @@ class Unit:
     def __init__(self):
         self.hp=200
         self.team=None
+        self.id=None
         self.dmg=[16, 28]
         self.luck=50
         self.controller=None
@@ -41,6 +42,11 @@ class Unit:
     def endturn(self):
         pass
     
+    
+    def turn(self, game):
+        if self.controller=='player':
+            attackmenu(self)
+    
     def changedmg(dmg, coef):
         result=[]
         result.append(int(dmg[0]*coef))
@@ -60,5 +66,14 @@ class Warrior(Unit):
         self.dmg=self.changedmg(self.dmg, 0.75)
         self.class='warrior'
         self.agility=int(self.agility*0.7)
+    
+    
+    
+def attackmenu(player):
+    kb=types.InlineKeyboardMarkup()
+    kb.add(types.InlineKeyboardButton(text='Физ. атака', callback_data='p_attack'),types.InlineKeyboardButton(text='Скиллы', callback_data='skills'))
+    kb.add(types.InlineKeyboardButton(text='Инвентарь', callback_data='inventory'),types.InlineKeyboardButton(text='Сменить руку', callback_data='handchange'))
+    kb.add(types.InlineKeyboardButton(text='Закончить ход', callback_data='endturn'))
+    bot.send_message(player.id, 'Выберите действие.', reply_markup=kb)
     
     
