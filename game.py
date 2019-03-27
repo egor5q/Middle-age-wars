@@ -53,6 +53,7 @@ class Game:
             elif unit['fighter']['class']=='warrior':
                 x=units.Warrior()
             x.controller='player'
+            x.id=unit['fighter']['id']
                 
         x.team=unit['team']
             
