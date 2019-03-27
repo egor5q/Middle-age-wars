@@ -50,9 +50,9 @@ class Unit:
     
 class Warrior(Unit):
     super().__init__()
-    self.hp=int(self.hp*1.25)
+    self.hp=int(self.hp*1.35)
     self.dmg=self.changedmg(self.dmg, 0.75)
     self.class='warrior'
-    self.agility=self.changecoef(self.agility, 0.7)
+    self.agility=int(self.agility*0.7)
     
     
