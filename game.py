@@ -9,6 +9,9 @@ from pymongo import MongoClient
 import units
 
 
+games={}
+count=0
+
 class Game:
     
     def start(self):
@@ -30,14 +33,23 @@ class Game:
                 
         self.currentplayer=random.choice(spisok)
         self.currentplayer.turn(self)
+        self.timer=threading.Timer(60, self.endturn)
+        self.timer.start()
+        
+    def endturn(self):
+        pass
         
     
     def __init__(self, fighters):   #{'fighter':ids,  'team':ct}
+        global count
+        count+=1
         self.players={}
+        self.timer=None
         for ids in fighters:
             self.players.update(self.createunit(fighters[ids])) 
         self.turn=1
         self.currentplayer=None
+        games.update({count:self})
         self.start()
     
     
