@@ -9,6 +9,7 @@ class Unit:
     
     def __init__(self):
         self.hp=200
+        self.team=None
         self.dmg=[16, 28]
         self.luck=50
         self.body={
