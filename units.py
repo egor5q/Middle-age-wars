@@ -12,6 +12,7 @@ class Unit:
         self.team=None
         self.dmg=[16, 28]
         self.luck=50
+        self.controller=None
         self.body={
             'righthand':None,
             'lefthand':None,
