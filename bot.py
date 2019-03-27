@@ -19,6 +19,8 @@ db=client.middleagewars
 users=db.users
 
 
+allids=-1
+
 try:
     pass
 
@@ -99,17 +101,25 @@ def findmonster(players):           # Планы: сделать возможн�
     ct=1
     for ids in players: 
         fighters.update({ids['id']:{'fighter':ids,
-                                   'team':ct}
+                                   'team':ct,
+                                   'id':ids['id']}
                         })
     ct=2
     for ids in monsters:
-        fighters.update({createid():{'fighter':ids,
-                                   'team':ct}
+        idd=createid()
+        fighters.update({idd:{'fighter':ids,
+                                   'team':ct,
+                                    'id':idd}
                         })
     game.creategame(fighters)
         
         
-        
+   
+def createid():
+    global allids
+    allids-=1
+    return allids
+
         
 def mainmenu(user):
     kb=types.ReplyKeyboardMarkup(resize_keyboard=True)
