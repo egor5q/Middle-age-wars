@@ -14,7 +14,7 @@ bot = telebot.TeleBot(token)
 
 
 client=MongoClient(os.environ['database'])
-db=client.
+db=client.middleagewars
 users=db.users
 
 
@@ -25,6 +25,11 @@ except Exception as e:
     print('Ошибка:\n', traceback.format_exc())
     bot.send_message(441399484, traceback.format_exc())
 
+    
+
+    
+    
+    
 print('7777')
 bot.polling(none_stop=True,timeout=600)
 
