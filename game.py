@@ -110,9 +110,9 @@ class Game:
                 x.controller='ai'
                 x.name='Медведь'
         except:
-            if unit['fighter']['class']=='basic':
+            if unit['fighter']['type']=='basic':
                 x=units.Basic()
-            elif unit['fighter']['class']=='warrior':
+            elif unit['fighter']['type']=='warrior':
                 x=units.Warrior()
             x.name=unit['name']
             x.controller='player'
