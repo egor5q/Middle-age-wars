@@ -17,9 +17,11 @@ class Unit:
         self.body={
             'righthand':None,
             'lefthand':None,
-            'head':None
+            'head':None,
+            'body':None
             
         }
+        self.dmgbuff=[0, 0]
         self.mainhand='righthand'
         self.inentory=[]
         self.class='basic'
@@ -67,13 +69,38 @@ class Warrior(Unit):
         self.class='warrior'
         self.agility=int(self.agility*0.7)
     
+   
+def handtotext(x):
+    if x=='righthand':
+        return 'Правая'
+    elif x=='lefthand':
+        return 'Левая'
     
+    
+def armortoname(x):
+    if x==None:
+        return 'Ничего'
     
 def attackmenu(player):
+    text=''
+    text+='♥️Хп: '+str(player.hp)+'\n'
+    text+='💢Урон: '+str(player.dmg[0]+player.dmgbuff[0])+'-'+str(player.dmg[1]+player.dmgbuff[1])+'\n'
+    text+='🏃‍♂️Скорость: '+str(player.speedregen)+'\n'
+    text+='Экипировка:\n'+
+    text+='  Голова: '+armortoname(player.body['head']).lower()+'\n'
+    a=''
+    b=''
+    if player.mainhand=='righthand':
+        a='(текущая)'
+    if player.mainhand=='lefthand':
+        b='(текущая) '
+    text+='  Правая '+a+'рука: '+armortoname(player.body['righthand']).lower()+'\n'
+    text+='  Левая '+b+'рука: '+armortoname(player.body['lefthand']).lower()+'\n'
+    text+='  Туловище: '+armortoname(player.body['body']).lower()+'\n'
     kb=types.InlineKeyboardMarkup()
     kb.add(types.InlineKeyboardButton(text='Физ. атака', callback_data='p_attack'),types.InlineKeyboardButton(text='Скиллы', callback_data='skills'))
     kb.add(types.InlineKeyboardButton(text='Инвентарь', callback_data='inventory'),types.InlineKeyboardButton(text='Сменить руку', callback_data='handchange'))
     kb.add(types.InlineKeyboardButton(text='Закончить ход', callback_data='endturn'))
-    bot.send_message(player.id, 'Выберите действие.', reply_markup=kb)
+    bot.send_message(player.id, text, reply_markup=kb)
     
     
