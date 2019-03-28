@@ -25,7 +25,7 @@ class Game:
                     enemy=self.players[idss]
                     if enemy.team!=player.team:
                         enemys+=enemy.name+'\n'
-                bot.send_message(player['id'], 'Ваши соперники:\n\n'+enemys)
+                bot.send_message(player.id, 'Ваши соперники:\n\n'+enemys)
         self.turn()
         
         
