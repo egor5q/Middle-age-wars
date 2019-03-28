@@ -43,6 +43,10 @@ class Game:
                 
         self.currentplayer=random.choice(spisok)
         self.currentplayer.turn(self)
+        for ids in self.players:
+            player=self.players[ids]
+            if player.controller!='ai':
+                bot.send_message(player.id, 'Начался ход игрока '+self.currentplayer.name+'!')
         self.currentplayer.speed-=self.currentplayer.weight
         self.timer=threading.Timer(60, self.endturn)
         self.timer.start()
@@ -57,6 +61,8 @@ class Game:
             player=self.players[ids]
             if 'stunned' not in player.statuses:
                 player.speed+=player.speedregen
+            if player.hp<=0:
+                player.dead=True
         self.turn+=1
         self.currentplayer=None
         if self.endgame()==False:
@@ -74,7 +80,8 @@ class Game:
         for ids in self.players:
             player=self.players[ids]
             if player.team not in teams:
-                teams.append(player.team)
+                if player.dead==False:
+                    teams.append(player.team)
         if len(teams)<=1:
             return True
         return False    
