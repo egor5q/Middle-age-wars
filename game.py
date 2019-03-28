@@ -16,11 +16,20 @@ count=0
 class Game:
     
     def start(self):
+        for ids in self.players:
+            player=self.players[ids]
+            enemys=''
+            if player.controller!='ai':
+                for idss in self.players:
+                    if enemy=self.players[idss]
+                    if enemy.team!=player.team:
+                        enemys+=enemy.name+'\n'
+                bot.send_message(player['id'], 'Ваши соперники:\n\n'+enemys)
         self.turn()
         
         
     def turn(self):
-        maxspeed=0
+        maxspeed=-1000
         for ids in self.players:
             player=self.players[ids]
             if player.speed>maxspeed:
