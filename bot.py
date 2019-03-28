@@ -107,8 +107,8 @@ def beginlobby(m):
         del lobbys[i]
         game.Game(fighters)
         
-    except:
-        pass
+    except Exception as e:
+        bot.send_message(441399484, traceback.format_exc())
         
 
 def createlobby(id):
