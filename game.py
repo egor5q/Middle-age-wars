@@ -72,6 +72,8 @@ class Game:
                 player=self.players[ids]
                 try:
                     bot.send_message(player.id, 'Игра окончена!')
+                except:
+                    pass
             del games[self.id]
             
         
