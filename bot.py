@@ -100,16 +100,23 @@ def findmonster(players):           # Планы: сделать возможн�
     fighters={}
     ct=1
     for ids in players: 
+        if ids['battlename']==None:
+            name=ids['name'][:12]
+        else:
+            name=ids['battlename']
         fighters.update({ids['id']:{'fighter':ids,
                                    'team':ct,
-                                   'id':ids['id']}
+                                   'id':ids['id'],
+                                   'name':name
+                                   }
                         })
     ct=2
     for ids in monsters:
         idd=createid()
         fighters.update({idd:{'fighter':ids,
                                    'team':ct,
-                                    'id':idd}
+                                    'id':idd
+                             }
                         })
     game.creategame(fighters)
         
@@ -152,10 +159,17 @@ def inline(call):
         g=game.games[ids]
         if call.from_user.id in g:
             cgame=g
+            cunit=cgame.players[cgame.currentplayer.id]
     if cgame!=None:
-        if call.data=='endturn':
-            cgame.timer.cancel()
-            cgame.endturn()
+        if cunit['id']==call.from_user.id:
+            if call.data=='endturn':
+                cgame.timer.cancel()
+                cgame.endturn()
+            if call.data=='p_attack':
+                units.choicetarget(cunit)
+                
+        else:
+            bot.answer_callback_query(call.id, 'Сейчас не ваш ход!')
         
                 
     
