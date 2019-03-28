@@ -33,6 +33,7 @@ class Game:
                 
         self.currentplayer=random.choice(spisok)
         self.currentplayer.turn(self)
+        self.currentplayer.speed-=self.currentplayer.weight
         self.timer=threading.Timer(60, self.endturn)
         self.timer.start()
         
