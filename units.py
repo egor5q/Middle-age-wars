@@ -27,6 +27,7 @@ class Unit:
         self.inentory=[]
         self.class='basic'
         self.mana=300
+        self.statuses=[]
         self.skills=['charge']
         self.speedregen=400
         self.speed=self.speedregen
