@@ -12,7 +12,7 @@ class Unit:
         self.team=None
         self.id=None
         self.dmg=[16, 28]
-        self.luck=50
+        self.luck=0
         self.controller=None
         self.body={
             'righthand':None,
@@ -26,7 +26,7 @@ class Unit:
         self.inentory=[]
         self.class='basic'
         self.mana=300
-        self.skills=[]
+        self.skills=['charge']
         self.speedregen=400
         self.speed=self.speedregen
         self.weight=400     # В ход у юнита регенится (self.speedregen) скорости. На ход юнит трати (self.weight) скорости. 
