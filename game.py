@@ -59,11 +59,13 @@ class Game:
             if unit['fighter']=='bear':
                 x=units.Bear()
                 x.controller='ai'
+                x.name='Медведь'
         except:
             if unit['fighter']['class']=='basic':
                 x=units.Basic()
             elif unit['fighter']['class']=='warrior':
                 x=units.Warrior()
+            x.name=unit['name']
             x.controller='player'
             x.id=unit['fighter']['id']
                 
