@@ -98,9 +98,14 @@ def beginlobby(m):
         i=m.text.split(' ')[1]
         ct=1
         for ids in lobbys[i]['users']:
+            if ids['battlename']==None:
+                name=ids['name'][:12]
+            else:
+                name=ids['battlename']
             fighters.update({ids['id']:{'fighter':ids,
                                    'team':ct,
-                                    'id':ids['id']
+                                    'id':ids['id'],
+                                    'name':name
                              }
                         })
             ct+=1
