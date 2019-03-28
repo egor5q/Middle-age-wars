@@ -177,12 +177,13 @@ def playerinfo(player):
     
 def findgame(player=None):
     g=None
+    cgame=None
     if player!=None:
         for ids in game.games:
             g=game.games[ids]
             if player.id in g.players:
                 cgame=g
-    return g
+    return cgame
     
     
 def choicetarget(player):
