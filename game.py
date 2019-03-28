@@ -37,8 +37,31 @@ class Game:
         self.timer.start()
         
     def endturn(self):
-        pass
+        for ids in self.players:
+            player=self.players[ids]
+            if 'stunned' not in player.statuses:
+                player.speed+=player.speedregen
+        self.turn+=1
+        self.currentplayer=None
+        if self.endgame()==False:
+            self.turn()
+        else:
+            for ids in self.players:
+                player=self.players[ids]
+                try:
+                    bot.send_message(player.id, 'Игра окончена!')
+            del games[self.id]
+            
         
+    def endgame(self):
+        teams=[]
+        for ids in self.players:
+            player=self.players[ids]
+            if player.team not in teams:
+                teams.append(player.team)
+        if len(teams)<=1:
+            return True
+        return False    
     
     def __init__(self, fighters):   #{'fighter':ids,  'team':ct}
         global count
@@ -50,6 +73,7 @@ class Game:
         self.turn=1
         self.currentplayer=None
         games.update({count:self})
+        self.id=count
         self.start()
     
     
