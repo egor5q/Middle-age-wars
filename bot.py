@@ -11,7 +11,7 @@ import game
 import units
 from tools import medit
 import traceback
-import types
+from telebot import types
 
 
 token = os.environ['TELEGRAM_TOKEN']
