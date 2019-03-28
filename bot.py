@@ -15,10 +15,30 @@ from tools import medit
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
 
+lobbys={}
+codes=[]
 
 client=MongoClient(os.environ['database'])
 db=client.middleagewars
 users=db.users
+
+lvls={
+    '1':10,
+    '2':35,
+    '3':100,
+    '4':146,
+    '5':223,
+    '6':349,
+    '7':611,
+    '8':928,
+    '9':1310,
+    '10':1700,
+    '11':2241,
+    '12':2696,
+    '13':3200,
+    '14':3781,
+    '15':4499
+}
 
 
 allids=-1
@@ -45,7 +65,71 @@ def start(m):
                             'может и обретёшь богатство славу!')
         mainmenu(user)
         
+  
+@bot.message_handler(commands=['join'])
+def join(m):
+    user=users.find_one({'id':m.from_user.id})
+    try:
+        i=m.text.split(' ')[1]
+        for ids in lobbys:
+            l=lobbys[ids]
+            if l['code']==i:
+                l['users'].append(user)
+                bot.send_message(m.from_user.id, 'Вы присоединились к игре!')
+    except:
+        pass
+        
+
+@bot.message_handler(commands=['testlobby'])
+def testduel(m):
+    x=createlobby(m.chat.id)
+    lobbys.update(x)
+    bot.send_message(m.chat.id, 'Лобби создано! Код:\n`'+x['code']+'`', parse_mode='markdown')
+
     
+@bot.message_handler(commands=['beginlobby'])
+def beginlobby(m):
+    try:
+        fighters={}
+        i=m.text.split(' ')[1]
+        ct=1
+        for ids in lobbys[i]['users']:
+            fighters.update({ids['id']:{'fighter':ids,
+                                   'team':ct,
+                                    'id':ids['id']
+                             }
+                        })
+            ct+=1
+        del lobbys[i]
+        game.Game(fighters)
+        
+    except:
+        pass
+        
+
+def createlobby(id):
+    return{'id':id,
+           'code':randomcode(codes),
+           'users':[]
+          }
+    
+           
+def randomcode(x):
+    i=0
+    txt=''
+    while i<7:
+        txt+=str(random.randint(1,9))
+        i+=1
+    while txt in x:
+        i=0
+        txt=''
+        while i<7:
+            txt+=str(random.randint(1,9))
+            i+=1
+    codes.append(txt)
+    return txt
+        
+           
 @bot.message_handler()
 def messages(m):
     if m.from_user.id==m.chat.id:
@@ -92,6 +176,9 @@ def messages(m):
                 
             elif m.text=='Назад':
                 mainmenu(user)
+                
+        else:
+            bot.send_message(m.chat.id, 'Вы заняты!')
                     
          
 def findmonster(players):           # Планы: сделать возможность случайному игроку запустить в бой своего монстра и управлять им
@@ -221,7 +308,7 @@ def createuser(user):
     
     
     
-    
+users.update_many({},{'$set':{'status':'free'}}) 
 print('7777')
 bot.polling(none_stop=True,timeout=600)
 
