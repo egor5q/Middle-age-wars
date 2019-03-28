@@ -7,6 +7,7 @@ from emoji import emojize
 from telebot import types
 from pymongo import MongoClient
 import units
+from tools import medit
 
 
 games={}
@@ -38,6 +39,11 @@ class Game:
         self.timer.start()
         
     def endturn(self):
+        try:
+            self.timer.stop()
+            self.timer=None
+        except:
+            pass
         for ids in self.players:
             player=self.players[ids]
             if 'stunned' not in player.statuses:
