@@ -180,7 +180,7 @@ def findgame(player=None):
     if player!=None:
         for ids in game.games:
             g=game.games[ids]
-            if player.id in g:
+            if player.id in g.players:
                 cgame=g
     return g
     
