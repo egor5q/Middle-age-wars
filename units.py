@@ -1,4 +1,5 @@
 import game
+from tools import medit
 
 
 classes=['warrior', 'bower', 'mage', 'assasin', 'basic']
