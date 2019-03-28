@@ -54,11 +54,12 @@ def messages(m):
             text=''
             if m.text=='👁Разведка':
                 kb=types.ReplyKeyboardMarkup(resize_keyboard=True)
-                kb.add(types.ReplyKeyboardButton('🌲Лес'))
+                kb.add(types.KeyboardButton('🌲Лес'))
                 text+='(⚡️)Лес - ближайший к вам лес находится не так уж и далеко.\n\n'
                 if user['lvl']>=5:
                     kb.add(types.ReplyKeyboardButton('🏔Горы'))
                     text+='(⚡️⚡️)Горы - подъем в гору требует больше сил, но там происходят вещи поинтереснее, чем в лесу.\n\n'
+                kb.add(types.KeyboardButton('Назад'))
                 bot.send_message(m.chat.id, 'Вы выходите из своего дома и думаете, куда бы направиться.\n\n'+text)
                 
             elif m.text=='🌲Лес':
@@ -73,12 +74,13 @@ def messages(m):
             elif m.text=='⚔️Битвы':
                 text=''
                 kb=types.ReplyKeyboardMarkup(resize_keyboard=True)
-                kb.add(types.ReplyKeyboardButton('💀Искать монстров'))
+                kb.add(types.KeyboardButton('💀Искать монстров'))
                 text+='💀Поиск монстров - побеждая монстров, вы будете получать много опыта, а если повезёт - жители ближайшей деревни отсыпят '+\
                 'вам немного серебра!\n\n'
                 if user['lvl']>=5:
-                    kb.add(types.ReplyKeyboardButton('🆚Искать других бойцов'))
+                    kb.add(types.KeyboardButton('🆚Искать других бойцов'))
                     text+='🆚Искать других бойцов - в разработке.'
+                kb.add(types.KeyboardButton('Назад'))
                 bot.send_message(m.chat.id, 'Живи охотой или умри добычей! Участвуя в сражениях, '+
                                  'вы будете обретать славу и ценнейший опыт!\n\n'+text)
                 
@@ -87,6 +89,9 @@ def messages(m):
                 players=[user]
                 t=threading.Timer(120, findmonster, args=[players])
                 t.start()
+                
+            elif m.text=='Назад':
+                mainmenu(user)
                     
          
 def findmonster(players):           # Планы: сделать возможность случайному игроку запустить в бой своего монстра и управлять им
@@ -132,7 +137,7 @@ def createid():
         
 def mainmenu(user):
     kb=types.ReplyKeyboardMarkup(resize_keyboard=True)
-    kb.add(types.ReplyKeyboardButton('⚔️Битвы'), types.ReplyKeyboardButton('👁Разведка'))
+    kb.add(types.KeyboardButton('⚔️Битвы'), types.KeyboardButton('👁Разведка'))
     bot.send_message(user['id'], '🏡Главное меню.', reply_markup=kb)
         
         
