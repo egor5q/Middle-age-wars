@@ -270,6 +270,7 @@ def inline(call):
         if cunit.id==call.from_user.id:
             if call.data=='endturn':
                 cgame.timer.cancel()
+                medit('Выбрано: закончить ход.', call.message.chat.id, call.message.message_id)
                 cgame.endturn()
             if call.data=='p_attack':
                 units.choicetarget(cunit)
