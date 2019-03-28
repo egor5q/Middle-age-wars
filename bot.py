@@ -119,7 +119,7 @@ def findmonster(players):           # Планы: сделать возможн�
                                     'id':idd
                              }
                         })
-    game.creategame(fighters)
+    game.Game(fighters)
         
         
    
