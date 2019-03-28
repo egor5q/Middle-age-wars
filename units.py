@@ -81,8 +81,24 @@ def armortoname(x):
     if x==None:
         return 'Ничего'
     
+    
+def classtoname(x):
+    y='Ошибка'
+    if x=='basic':
+        return 'Базовый'
+    if x=='warrior':
+        return 'Воин'
+    if x=='bower':
+        return 'Лучник'
+    if x=='mage':
+        return 'Маг'
+    if x=='assasin':
+        return 'Ассасин'
+    return y
+    
 def attackmenu(player):
     text=''
+    text+='Класс: '+classtoname(player.class).lower()
     text+='♥️Хп: '+str(player.hp)+'\n'
     text+='💢Урон: '+str(player.dmg[0]+player.dmgbuff[0])+'-'+str(player.dmg[1]+player.dmgbuff[1])+'\n'
     text+='🏃‍♂️Скорость: '+str(player.speedregen)+'\n'
