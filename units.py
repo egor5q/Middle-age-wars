@@ -189,6 +189,7 @@ def findgame(player=None):
 def choicetarget(player):
     cgame=findgame(player=player)
     if cgame!=None:
+        kb=types.InlineKeyboardMarkup()
         enemys=[]
         for ids in cgame.players:
             target=cgame.players[ids]
