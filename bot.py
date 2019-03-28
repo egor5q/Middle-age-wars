@@ -76,8 +76,8 @@ def join(m):
             if l['code']==i:
                 l['users'].append(user)
                 bot.send_message(m.from_user.id, 'Вы присоединились к игре!')
-    except:
-        pass
+    except Exception as e:
+        bot.send_message(441399484, traceback.format_exc())
         
 
 @bot.message_handler(commands=['testlobby'])
