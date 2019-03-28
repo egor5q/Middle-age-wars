@@ -8,6 +8,7 @@ from emoji import emojize
 from telebot import types
 from pymongo import MongoClient
 import game
+from tools import medit
 
 
 token = os.environ['TELEGRAM_TOKEN']
@@ -145,6 +146,7 @@ def forest(user):
         silver=1
         text='Вы вернулись из леса.\n\nПолученные ресурсы:\n'
     users.update_one({'id':user['id']},{'$inc':{'siler':silver, 'exp':exp}})
+    users.update_one({'id':user['id']},{'$set':{'status':'free'}})
     if exp>0:
         text+='⭐️Опыт: '+str(exp)+'\n'
     if silver>0:
@@ -172,6 +174,8 @@ def inline(call):
                 t=int(call.data.split(' ')[1])
                 target=findunit(cgame, t)
                 target.recievehit(cunit)
+                cgame.endturn()
+                medit('Выбрано: атака.', call.message.chat.id, call.message.message_id)
         else:
             bot.answer_callback_query(call.id, 'Сейчас не ваш ход!')
         
