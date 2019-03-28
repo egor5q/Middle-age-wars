@@ -2,6 +2,7 @@ import game
 from tools import medit
 import os
 import telebot
+from telebot import types
 
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
