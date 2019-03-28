@@ -168,11 +168,17 @@ def inline(call):
             if call.data=='p_attack':
                 units.choicetarget(cunit)
                 
+            if 'atk' in call.data:
+                t=int(call.data.split(' ')[1])
+                target=findunit(cgame, t)
+                target.recievehit(cunit)
         else:
             bot.answer_callback_query(call.id, 'Сейчас не ваш ход!')
         
-                
-    
+def findunit(gamee, id):
+    for ids in gamee.players:
+        if gamee.players[ids].id==id:
+            return gamee.players[ids]
     
 def createuser(user):
     return {
