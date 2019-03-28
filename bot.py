@@ -86,7 +86,9 @@ def join(m):
 def testduel(m):
     x=createlobby(m.chat.id)
     lobbys.update(x)
-    bot.send_message(m.chat.id, 'Лобби создано! Код:\n`'+x['code']+'`', parse_mode='markdown')
+    for ids in x:
+        code=x[ids]['code']
+    bot.send_message(m.chat.id, 'Лобби создано! Код:\n`'+code+'`', parse_mode='markdown')
 
     
 @bot.message_handler(commands=['beginlobby'])
