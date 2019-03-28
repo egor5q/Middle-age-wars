@@ -52,6 +52,7 @@ class Unit:
     def recievehit(self, unit):
         d1=0
         d2=0
+        cgame=findgame(self)
         if unit.body[unit.mainhand]!=None:
             weapon=unit.body[unit.mainhand]
             d1=weapon.dmg[0]
@@ -61,9 +62,9 @@ class Unit:
         except:
             dmg=unit.dmg[0]+unit.dmgbuff[0]+d1
         dmg=self.recievedmg(dmg)
-        for ids in self.players:
-            if self.players[ids].controller!='ai':
-                bot.send_message(self.players[ids].id, unit.name+' атакует '+self.name+' с помощью '+weapontoname(unit.body[unit.mainhand])+'! Нанесено '+str(dmg)+' урона.')
+        for ids in cgame.players:
+            if cgame.players[ids].controller!='ai':
+                bot.send_message(cgame.players[ids].id, unit.name+' атакует '+self.name+' с помощью '+weapontoname(unit.body[unit.mainhand])+'! Нанесено '+str(dmg)+' урона.')
 
     
     
