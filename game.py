@@ -55,7 +55,7 @@ class Game:
         
     def endturn(self):
         try:
-            self.timer.stop()
+            self.timer.cancel()
             self.timer=None
         except:
             pass
