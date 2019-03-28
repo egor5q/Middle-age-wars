@@ -2,7 +2,7 @@ import game
 from tools import medit
 
 
-classes=['warrior', 'bower', 'mage', 'assasin', 'basic']
+classes=['warrior', 'bower', 'mage', 'assasin', 'basic']  #types
 
 
 
@@ -27,7 +27,7 @@ class Unit:
         self.dmgbuff=[0, 0]
         self.mainhand='righthand'
         self.inentory=[]
-        self.class='basic'
+        self.type='basic'
         self.mana=300
         self.statuses=[]
         self.skills=['charge']
@@ -91,7 +91,7 @@ class Warrior(Unit):
         super().__init__()
         self.hp=int(self.hp*1.35)
         self.dmg=self.changedmg(self.dmg, 0.75)
-        self.class='warrior'
+        self.type='warrior'
         self.agility=int(self.agility*0.7)
     
     
@@ -153,7 +153,7 @@ def weapontoname(x):
 
 def playerinfo(player):
     text=''
-    text+='Класс: '+classtoname(player.class).lower()
+    text+='Класс: '+classtoname(player.type).lower()
     text+='♥️Хп: '+str(player.hp)+'\n'
     text+='💢Урон: '+str(player.dmg[0]+player.dmgbuff[0])+'-'+str(player.dmg[1]+player.dmgbuff[1])+'\n'
     text+='🏃‍♂️Скорость: '+str(player.speedregen)+'\n'
