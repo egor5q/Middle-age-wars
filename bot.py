@@ -173,7 +173,8 @@ def createuser(user):
         'equipment':{
             'righthand':None,
             'lefthand':None,
-            'head':None
+            'head':None,
+            'body':None
         
         }
         'silver':0,
