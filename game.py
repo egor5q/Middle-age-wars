@@ -64,7 +64,7 @@ class Game:
                 player.speed+=player.speedregen
             if player.hp<=0:
                 player.dead=True
-        self.turn+=1
+        self.xod+=1
         self.currentplayer=None
         if self.endgame()==False:
             self.turn()
@@ -96,7 +96,7 @@ class Game:
         self.timer=None
         for ids in fighters:
             self.players.update(self.createunit(fighters[ids])) 
-        self.turn=1
+        self.xod=1
         self.currentplayer=None
         games.update({count:self})
         self.id=count
