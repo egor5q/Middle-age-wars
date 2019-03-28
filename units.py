@@ -215,6 +215,6 @@ def attackmenu(player):
         msg=bot.send_message(player.id, text, reply_markup=kb)
         player.message=msg
     else:
-        medit(text, call.message.chat.id, call.message.message_id)
+        medit(text, player.message.chat.id, player.message.message_id)
     
     
