@@ -111,7 +111,7 @@ class Game:
                 x.name='Медведь'
         except:
             if unit['fighter']['type']=='basic':
-                x=units.Basic()
+                x=units.Unit()
             elif unit['fighter']['type']=='warrior':
                 x=units.Warrior()
             x.name=unit['name']
