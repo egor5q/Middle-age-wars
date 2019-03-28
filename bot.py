@@ -190,7 +190,7 @@ def createuser(user):
         'id':user.id,
         'name':user.first_name,
         'username':user.username,
-        'class':'basic',
+        'type':'basic',
         'energy':4,
         'maxenergy':4,
         'status':'free',
