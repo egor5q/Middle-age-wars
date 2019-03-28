@@ -61,6 +61,7 @@ class Game:
             pass
         for ids in self.players:
             player=self.players[ids]
+            player.message=None
             if 'stunned' not in player.statuses:
                 player.speed+=player.speedregen
             if player.hp<=0:
