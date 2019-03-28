@@ -110,10 +110,11 @@ def beginlobby(m):
         
 
 def createlobby(id):
-    return{'id':id,
-           'code':randomcode(codes),
+    rc=randomcode(codes)
+    return{rc:{'id':id,
+           'code':rc,
            'users':[]
-          }
+          }}
     
            
 def randomcode(x):
