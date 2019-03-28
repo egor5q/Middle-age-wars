@@ -207,7 +207,7 @@ def createuser(user):
             'head':None,
             'body':None
         
-        }
+        },
         'silver':0,
         'exp':0,
         'lvl':1,
