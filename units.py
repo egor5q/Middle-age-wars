@@ -1,6 +1,10 @@
 import game
 from tools import medit
+import os
+import telebot
 
+token = os.environ['TELEGRAM_TOKEN']
+bot = telebot.TeleBot(token)
 
 classes=['warrior', 'bower', 'mage', 'assasin', 'basic']  #types
 
