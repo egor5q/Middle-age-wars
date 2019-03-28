@@ -10,6 +10,7 @@ from pymongo import MongoClient
 import game
 import units
 from tools import medit
+import traceback
 
 
 token = os.environ['TELEGRAM_TOKEN']
