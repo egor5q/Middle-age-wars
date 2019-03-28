@@ -40,6 +40,7 @@ class Unit:
     
     def recievedmg(self, dmg):
         self.hp-=dmg
+        return dmg
 
         
         
@@ -54,7 +55,11 @@ class Unit:
             dmg=random.randint(unit.dmg[0]+unit.dmgbuff[0]+d1, unit.dmg[1]+unit.dmgbuff[1]+d2)
         except:
             dmg=unit.dmg[0]+unit.dmgbuff[0]+d1
-        self.recievedmg(dmg)
+        dmg=self.recievedmg(dmg)
+        for ids in self.players:
+            if self.players[ids].controller!='ai':
+                bot.send_message(self.players[ids].id, unit.name+' атакует '+self.name+' с помощью '+weapontoname(unit.body[unit.mainhand])+'! Нанесено '+str(dmg)+' урона.')
+
     
     
     def attack(self, target):
@@ -88,6 +93,13 @@ class Warrior(Unit):
         self.dmg=self.changedmg(self.dmg, 0.75)
         self.class='warrior'
         self.agility=int(self.agility*0.7)
+    
+    
+    
+class Bear(Warrior):
+    def __init__(self):
+        super().__init__()
+    
     
 class Weapon:
     
@@ -133,6 +145,11 @@ def classtoname(x):
         return 'Ассасин'
     return y
     
+def weapontoname(x):
+    if x=='baseball':
+        return 'битой'
+    return 'кулаками'
+    
 
 def playerinfo(player):
     text=''
@@ -173,6 +190,7 @@ def choicetarget(player):
                 enemys.append(target)
         for ids in enemys:
             kb.add(types.InlineKeyboardButton(text=ids.name+'('+str(ids.hp)+'♥️)', callback_data='atk '+str(ids.id)))
+        kb.add(types.InlineKeyboardButton(text='Отмена', callback_data='mainmenu'))
         if player.message!=None:
             medit('Выберите цель.', player.message.chat.id, player.message.message_id, reply_markup=kb)
         else:
@@ -185,6 +203,10 @@ def attackmenu(player):
     kb.add(types.InlineKeyboardButton(text='Физ. атака', callback_data='p_attack'),types.InlineKeyboardButton(text='Скиллы', callback_data='skills'))
     kb.add(types.InlineKeyboardButton(text='Инвентарь', callback_data='inventory'),types.InlineKeyboardButton(text='Сменить руку', callback_data='handchange'))
     kb.add(types.InlineKeyboardButton(text='Закончить ход', callback_data='endturn'))
-    bot.send_message(player.id, text, reply_markup=kb)
+    if player.message==None:
+        msg=bot.send_message(player.id, text, reply_markup=kb)
+        player.message=msg
+    else:
+        medit(text, call.message.chat.id, call.message.message_id)
     
     
