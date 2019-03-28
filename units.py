@@ -37,11 +37,12 @@ class Unit:
         self.type='basic'
         self.mana=300
         self.statuses=[]
-        self.skills=['charge']
+        self.skills=[]
         self.speedregen=400
         self.speed=self.speedregen
         self.weight=400     # В ход у юнита регенится (self.speedregen) скорости. На ход юнит трати (self.weight) скорости. 
         self.agility=50     # У кого на данный момент больше скорости - тот ходит. Если одинаково - рандом.
+        self.accuracy=0
         self.message=None
     
     
@@ -102,6 +103,18 @@ class Warrior(Unit):
         self.dmg=self.changedmg(self.dmg, 0.75)
         self.type='warrior'
         self.agility=int(self.agility*0.7)
+        
+        
+class Bower(Unit):
+    
+    def __init__(self):
+        super().__init__()
+        self.hp=int(self.hp*0.8)
+        self.dmg=self.changedmg(self.dmg, 1.2)
+        self.type='bower'
+        self.accuracy+=30
+        self.agility=int(self.agility*1.1)
+        self.skills.append('multishot')
     
     
     
@@ -126,7 +139,23 @@ class Baseball(Weapon):
         self.dmg=[2, 3]
 
 
-
+class Skill:
+    
+    def __init__(self):
+        self.cd=1
+        self.maxcd=1
+        
+        
+        
+class Multishot(Skill):
+    
+    def __init__(self):
+        super().__init__()
+        self.maxcd=4
+        self.cd=self.maxcd
+        
+        
+        
 
 def handtotext(x):
     if x=='righthand':
