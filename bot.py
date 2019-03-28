@@ -169,7 +169,13 @@ def createuser(user):
         'energy':4,
         'maxenergy':4,
         'status':'free',
-        'stats':{},
+        'stats':{
+            'dmg':[0, 0],
+            'agility':0,
+            'hp':0,
+            'luck':0
+        
+        },
         'equipment':{
             'righthand':None,
             'lefthand':None,
