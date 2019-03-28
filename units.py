@@ -12,6 +12,7 @@ class Unit:
         self.name=None
         self.team=None
         self.id=None
+        self.dead=False
         self.dmg=[16, 28]
         self.luck=0
         self.controller=None
@@ -36,8 +37,23 @@ class Unit:
         self.message=None
     
     
-    def recievedmg(self, unit, weapon):
-        pass
+    def recievedmg(self, dmg):
+        self.hp-=dmg
+
+        
+        
+    def recievehit(self, unit):
+        d1=0
+        d2=0
+        if unit.body[unit.mainhand]!=None:
+            weapon=unit.body[unit.mainhand]
+            d1=weapon.dmg[0]
+            d2=weapon.dmg[1]
+        try:
+            dmg=random.randint(unit.dmg[0]+unit.dmgbuff[0]+d1, unit.dmg[1]+unit.dmgbuff[1]+d2)
+        except:
+            dmg=unit.dmg[0]+unit.dmgbuff[0]+d1
+        self.recievedmg(dmg)
     
     
     def attack(self, target):
@@ -155,7 +171,7 @@ def choicetarget(player):
             if target.team!=player.team:
                 enemys.append(target)
         for ids in enemys:
-            kb.add(types.InlineKeyboardButton(text=ids.name, callback_data='atk '+str(ids.id)))
+            kb.add(types.InlineKeyboardButton(text=ids.name+'('+str(ids.hp)+'♥️)', callback_data='atk '+str(ids.id)))
         if player.message!=None:
             medit('Выберите цель.', player.message.chat.id, player.message.message_id, reply_markup=kb)
         else:
