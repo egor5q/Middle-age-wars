@@ -265,8 +265,11 @@ def inline(call):
         g=game.games[ids]
         if call.from_user.id in g.players:
             cgame=g
-            cunit=cgame.players[cgame.currentplayer.id]
-    if cgame!=None:
+            try:
+                cunit=cgame.players[cgame.currentplayer.id]
+            except:
+                cunit=None
+    if cgame!=None and cunit!=None:
         if cunit.id==call.from_user.id:
             if call.data=='endturn':
                 cgame.timer.cancel()
