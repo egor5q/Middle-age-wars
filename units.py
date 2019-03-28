@@ -1,4 +1,4 @@
-
+import game
 
 
 classes=['warrior', 'bower', 'mage', 'assasin', 'basic']
@@ -9,6 +9,7 @@ class Unit:
     
     def __init__(self):
         self.hp=200
+        self.name=None
         self.team=None
         self.id=None
         self.dmg=[16, 28]
@@ -31,6 +32,7 @@ class Unit:
         self.speed=self.speedregen
         self.weight=400     # В ход у юнита регенится (self.speedregen) скорости. На ход юнит трати (self.weight) скорости. 
         self.agility=50     # У кого на данный момент больше скорости - тот ходит. Если одинаково - рандом.
+        self.message=None
     
     
     def recievedmg(self, unit, weapon):
@@ -69,7 +71,24 @@ class Warrior(Unit):
         self.class='warrior'
         self.agility=int(self.agility*0.7)
     
-   
+class Weapon:
+    
+    def __init__(self):
+        self.dmg=[1, 1]
+        self.skills=[]
+        self.specialattack=None
+        self.weight=50
+        
+        
+class Baseball(Weapon):
+    
+    def __init__(self):
+        super().__init__()
+        self.dmg=[2, 3]
+
+
+
+
 def handtotext(x):
     if x=='righthand':
         return 'Правая'
@@ -96,7 +115,8 @@ def classtoname(x):
         return 'Ассасин'
     return y
     
-def attackmenu(player):
+
+def playerinfo(player):
     text=''
     text+='Класс: '+classtoname(player.class).lower()
     text+='♥️Хп: '+str(player.hp)+'\n'
@@ -113,6 +133,36 @@ def attackmenu(player):
     text+='  Правая '+a+'рука: '+armortoname(player.body['righthand']).lower()+'\n'
     text+='  Левая '+b+'рука: '+armortoname(player.body['lefthand']).lower()+'\n'
     text+='  Туловище: '+armortoname(player.body['body']).lower()+'\n'
+    return text
+    
+def findgame(player=None):
+    g=None
+    if player!=None:
+        for ids in game.games:
+            g=game.games[ids]
+            if player.id in g:
+                cgame=g
+    return g
+    
+    
+def choicetarget(player):
+    cgame=findgame(player=player)
+    if cgame!=None:
+        enemys=[]
+        for ids in cgame.players:
+            target=cgame.players[ids]
+            if target.team!=player.team:
+                enemys.append(target)
+        for ids in enemys:
+            kb.add(types.InlineKeyboardButton(text=ids.name, callback_data='atk '+str(ids.id)))
+        if player.message!=None:
+            medit('Выберите цель.', player.message.chat.id, player.message.message_id, reply_markup=kb)
+        else:
+            bot.send_message(player['id'], 'Выберите цель.', reply_markup=kb)
+    
+    
+def attackmenu(player):
+    text=playerinfo(player)
     kb=types.InlineKeyboardMarkup()
     kb.add(types.InlineKeyboardButton(text='Физ. атака', callback_data='p_attack'),types.InlineKeyboardButton(text='Скиллы', callback_data='skills'))
     kb.add(types.InlineKeyboardButton(text='Инвентарь', callback_data='inventory'),types.InlineKeyboardButton(text='Сменить руку', callback_data='handchange'))
