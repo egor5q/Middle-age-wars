@@ -21,7 +21,7 @@ class Game:
             enemys=''
             if player.controller!='ai':
                 for idss in self.players:
-                    if enemy=self.players[idss]
+                    enemy=self.players[idss]
                     if enemy.team!=player.team:
                         enemys+=enemy.name+'\n'
                 bot.send_message(player['id'], 'Ваши соперники:\n\n'+enemys)
