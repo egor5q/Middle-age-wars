@@ -276,11 +276,12 @@ def inline(call):
                 units.choicetarget(cunit)
                 
             if 'atk' in call.data:
+                cgame.currentplayer=None
+                medit('Выбрано: атака.', call.message.chat.id, call.message.message_id)
                 t=int(call.data.split(' ')[1])
                 target=findunit(cgame, t)
                 target.recievehit(cunit)
                 cgame.endturn()
-                medit('Выбрано: атака.', call.message.chat.id, call.message.message_id)
         else:
             bot.answer_callback_query(call.id, 'Сейчас не ваш ход!')
         
