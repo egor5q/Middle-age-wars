@@ -69,6 +69,7 @@ def start(m):
   
 @bot.message_handler(commands=['join'])
 def join(m):
+    print(lobbys)
     user=users.find_one({'id':m.from_user.id})
     try:
         i=m.text.split(' ')[1]
