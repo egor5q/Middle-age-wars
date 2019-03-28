@@ -3,6 +3,7 @@ from tools import medit
 import os
 import telebot
 from telebot import types
+import traceback
 
 token = os.environ['TELEGRAM_TOKEN']
 bot = telebot.TeleBot(token)
@@ -58,8 +59,9 @@ class Unit:
             d1=weapon.dmg[0]
             d2=weapon.dmg[1]
         try:
-            dmg=random.randint(unit.dmg[0]+unit.dmgbuff[0]+d1, unit.dmg[1]+unit.dmgbuff[1]+d2)
-        except:
+            dmg=random.randint((unit.dmg[0]+unit.dmgbuff[0]+d1), (unit.dmg[1]+unit.dmgbuff[1]+d2))
+        except Exception as e:
+            bot.send_message(441399484, traceback.format_exc())
             dmg=unit.dmg[0]+unit.dmgbuff[0]+d1
         dmg=self.recievedmg(dmg)
         for ids in cgame.players:
