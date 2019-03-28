@@ -157,7 +157,7 @@ def playerinfo(player):
     text+='♥️Хп: '+str(player.hp)+'\n'
     text+='💢Урон: '+str(player.dmg[0]+player.dmgbuff[0])+'-'+str(player.dmg[1]+player.dmgbuff[1])+'\n'
     text+='🏃‍♂️Скорость: '+str(player.speedregen)+'\n'
-    text+='Экипировка:\n'+
+    text+='Экипировка:\n'
     text+='  Голова: '+armortoname(player.body['head']).lower()+'\n'
     a=''
     b=''
