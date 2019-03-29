@@ -49,6 +49,12 @@ class Unit:
     def recievedmg(self, dmg):
         self.hp-=dmg
         return dmg
+    
+    
+    def skillmenu(self):
+        for ids in self.skills:
+            if ids.cd<=0:
+                pass # Дать разыграть
 
         
         
@@ -153,8 +159,7 @@ class Multishot(Skill):
         super().__init__()
         self.maxcd=4
         self.cd=self.maxcd
-        
-        
+        self.name='multishot'
         
 
 def handtotext(x):
