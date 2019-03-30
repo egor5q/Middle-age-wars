@@ -11,7 +11,7 @@ bot = telebot.TeleBot(token)
 
 classes=['warrior', 'bower', 'mage', 'assasin', 'basic']  #types
 
-
+resists=['physic', 'magic', 'fire', 'dark', 'light']
 
 class Unit:
     
@@ -23,12 +23,14 @@ class Unit:
         self.dead=False
         self.dmg=[16, 28]
         self.luck=0
+        self.physresist=0
         self.controller=None
         self.body={
             'righthand':None,
             'lefthand':None,
             'head':None,
-            'body':None
+            'body':None,
+            'boots':None
             
         }
         self.dmgbuff=[0, 0]
